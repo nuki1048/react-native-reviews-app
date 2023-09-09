@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+
+import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
+import Home, { Review } from './screens/home/home';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useCallback } from 'react';
+import { useFonts } from 'expo-font';
+import {} from 'expo';
+import About from './screens/about/about';
+import HomeStackNavigator from './routes/homeStack';
+import RootDrawerNavigator from './routes/drawer';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fontsLoaded, fontError] = useFonts({
+    'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
+    'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
+  return <RootDrawerNavigator />;
+}
